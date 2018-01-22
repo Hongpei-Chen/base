@@ -10,5 +10,16 @@ import lombok.Data;
 public class Apple {
 
     private String color;
-    private Double weight;
+    private Integer weight;
+
+    public Apple(){}
+
+    public Apple(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Apple(String color, Integer weight) {
+        this.color = color;
+        this.weight = weight;
+    }
 }

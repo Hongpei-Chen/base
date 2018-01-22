@@ -12,7 +12,6 @@ public class CommonTest {
     @Test
     public void testLombok(){
         Apple apple = new Apple();
-        apple.setColor("reg");
-        System.out.println(apple.getColor());
+        apple.setColor("red");
     }
 }
