@@ -11,7 +11,6 @@ public class CommonTest {
 
     @Test
     public void testLombok(){
-        Apple apple = new Apple();
-        apple.setColor("red");
+        System.out.println(Math.sqrt(8.0));
     }
 }

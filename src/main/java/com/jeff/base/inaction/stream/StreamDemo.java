@@ -3,8 +3,14 @@ package com.jeff.base.inaction.stream;
 import com.jeff.base.inaction.bean.Trader;
 import com.jeff.base.inaction.bean.Transaction;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * @author jeff
@@ -83,11 +89,42 @@ public class StreamDemo {
         System.out.println("最大交易额：" + max.getAsInt());
     }
 
+    /**
+     * 获取100以内的勾股数
+     */
+    public static void pythagoreanTriples(){
+        Stream<int[]> stream =
+                IntStream.rangeClosed(1, 100).boxed()
+                        .flatMap(a -> IntStream.rangeClosed(a, 100)
+                                .filter(b -> Math.sqrt(a * a + b * b) % 1 == 0)
+                                .mapToObj(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)})
+                        );
+        stream.forEach(t -> System.out.println(t[0] + "," + t[1] + "," + t[2]));
+    }
+
+    //文件流
+    public static void readFile(){
+        try(Stream<String> lines = Files.lines(Paths.get("F:/InteillJWork/base/src/main/resources/busniessProtocol.html"),
+                Charset.defaultCharset())) {
+            lines.forEach(System.out::println);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    //无限流
+    public static void infiniteStream(){
+
+    }
+
 
     public static void main(String[] args) {
-        System.out.println("2011年的所有交易并按交易额从低到高排序: " + sortLowToHightByYearAndValue().toString());
+        /*System.out.println("2011年的所有交易并按交易额从低到高排序: " + sortLowToHightByYearAndValue().toString());
         System.out.println("交易员工作城市：" + workCities().toString());
         System.out.println("所有交易员的姓名字符串，按字母顺序排序: " + getTraderNames());
-        countTransction();
+        countTransction();*/
+//        pythagoreanTriples();
+
+        readFile();
     }
 }
